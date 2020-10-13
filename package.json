@@ -1,0 +1,25 @@
+{
+  "name": "brotli-dec-wasm",
+  "version": "0.1.0",
+  "description": "Brotli decompress with wasm. Small size to fit browsers and web workers.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "wasm-pack build --target web --release"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/myl7/brotli-dec-wasm.git"
+  },
+  "keywords": [
+    "Brotli-decompression",
+    "Wasm",
+    "Rust"
+  ],
+  "author": "myl7",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/myl7/brotli-dec-wasm/issues"
+  },
+  "homepage": "https://github.com/myl7/brotli-dec-wasm#readme"
+}
