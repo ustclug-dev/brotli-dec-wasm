@@ -2,10 +2,9 @@
   "name": "brotli-dec-wasm",
   "version": "0.1.0",
   "description": "Brotli decompressor for browsers and web workers with wasm but still having a small size",
-  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "wasm-pack build --target web --release"
+    "build": "bash build.sh"
   },
   "repository": {
     "type": "git",
@@ -21,5 +20,12 @@
   "bugs": {
     "url": "https://github.com/myl7/brotli-dec-wasm/issues"
   },
-  "homepage": "https://github.com/myl7/brotli-dec-wasm#readme"
+  "homepage": "https://github.com/myl7/brotli-dec-wasm#readme",
+  "files": [
+    "pkg/*"
+  ],
+  "main": "pkg/brotli-dec-wasm.js",
+  "module": "pkg/brotli-dec-wasm.js",
+  "types": "pkg/brotli-dec-wasm.d.ts",
+  "sideEffects": false
 }
