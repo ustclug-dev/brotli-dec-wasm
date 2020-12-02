@@ -4,8 +4,8 @@ version = "0.1.0"
 authors = ["myl7 <myl.ustc@gmail.com>"]
 edition = "2018"
 license = "MIT"
-description = "Brotli decompress with wasm. Small size to fit browsers and web workers."
-keywords = ["Brotli-decompression", "Wasm", "Rust"]
+description = "Brotli decompressor for browsers and web workers with wasm but still having a small size"
+keywords = ["brotli-decompressor", "wasm", "rust"]
 repository = "git+ssh://git@github.com/myl7/brotli-dec-wasm.git"
 
 [lib]
