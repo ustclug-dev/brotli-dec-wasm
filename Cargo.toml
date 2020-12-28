@@ -1,6 +1,6 @@
 [package]
-name = "brotli_dec_wasm"
-version = "0.1.0"
+name = "brotli-dec-wasm"
+version = "1.0.0"
 authors = ["myl7 <myl.ustc@gmail.com>"]
 edition = "2018"
 license = "MIT"
