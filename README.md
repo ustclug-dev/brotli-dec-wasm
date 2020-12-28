@@ -1,7 +1,6 @@
 # brotli-dec-wasm
 
-[brotli](https://github.com/google/brotli) decompress with wasm.
-Small size to fit browsers and web workers.
+[Brotli](https://github.com/google/brotli) decompressor for browsers and web workers with wasm but still having a small size
 
 ## License
 
