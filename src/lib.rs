@@ -16,3 +16,10 @@ pub fn brotli_dec(buf: Box<[u8]>) -> Result<Box<[u8]>, JsValue> {
     }
     Ok(out.into_boxed_slice())
 }
+
+#[allow(deprecated)]
+#[deprecated]
+#[wasm_bindgen(js_name = brotli_dec)]
+pub fn brotli_dec_old(buf: Box<[u8]>) -> Result<Box<[u8]>, JsValue> {
+    brotli_dec(buf)
+}
