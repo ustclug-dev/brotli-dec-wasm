@@ -1,14 +1,14 @@
 {
   "name": "brotli-dec-wasm",
-  "version": "1.0.0",
-  "description": "Brotli decompressor for browsers and web workers with wasm but still having a small size",
+  "version": "1.1.0",
+  "description": "Brotli decompressor for browsers and web workers with WASM,\nbut still having a small size (~300K)",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "bash build.sh"
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/myl7/brotli-dec-wasm.git"
+    "url": "git+ssh://git@github.com/ustclug-dev/brotli-dec-wasm.git"
   },
   "keywords": [
     "brotli-decompressor",
@@ -18,9 +18,9 @@
   "author": "myl7",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/myl7/brotli-dec-wasm/issues"
+    "url": "https://github.com/ustclug-dev/brotli-dec-wasm/issues"
   },
-  "homepage": "https://github.com/myl7/brotli-dec-wasm#readme",
+  "homepage": "https://github.com/ustclug-dev/brotli-dec-wasm#readme",
   "files": [
     "pkg/*"
   ],
