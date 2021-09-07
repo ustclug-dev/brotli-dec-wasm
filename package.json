@@ -3,7 +3,7 @@
   "version": "1.2.0",
   "description": "Brotli decompressor for browsers and web workers with WASM,\nbut still having a small size (~300K)",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "bash tests/test.sh",
     "build": "bash build.sh"
   },
   "repository": {
