@@ -8,11 +8,10 @@ use wasm_bindgen::prelude::*;
 static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 
 #[wasm_bindgen(js_name = brotliDec)]
-pub fn brotli_dec(buf: Box<[u8]>) -> Result<Box<[u8]>, JsValue> {
-    let mut out = Vec::<u8>::new();
-    match BrotliDecompress(&mut buf.as_ref(), &mut out) {
-        Ok(_) => (),
-        Err(_) => return Err(JsValue::from_str("brotli dec failed")),
+pub fn brotli_dec(input: Box<[u8]>) -> Result<Box<[u8]>, JsValue> {
+    let mut output = Vec::new();
+    match BrotliDecompress(&mut input.as_ref(), &mut out) {
+        Ok(_) => Ok(output.into_boxed_slice()),
+        Err(_) => Err(JsValue::from_str("brotli dec failed")),
     }
-    Ok(out.into_boxed_slice())
 }
