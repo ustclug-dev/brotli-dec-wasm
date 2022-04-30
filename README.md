@@ -13,17 +13,17 @@ If you are looking for a compressor, see [Alternatives](#alternatives)
 
 Set `experiments.syncWebAssembly: true`
 
-# Implementation
+## Implementation
 
 The code is quite simple, which is just a wrapper of Cloudflare [`brotli-decompressor`](https://crates.io/crates/brotli-decompressor) crate (other than the well-known [`brotli`](https://crates.io/crates/brotli) crate)
 
 Build configuration such as `opt-level = "s"` and no `lto`, are fine-tuned with manual tests, to make the bundle as small as possible
 
-# Maintenance
+## Maintenance
 
 The package is at least used by myself in my blog [`mylmoe`](https://github.com/myl7/mylmoe), which provides [a page to (de)compress Brotli online](https://myl.moe/utils/brotli)
 
-# Alternatives
+## Alternatives
 
 - [brotli-wasm](https://github.com/httptoolkit/brotli-wasm): A reliable compressor and decompressor for Brotli, supporting node & browsers via wasm. If you need a compressor, use it. Actively maintained by an organization.
 
