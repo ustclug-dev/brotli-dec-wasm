@@ -15,7 +15,7 @@ Set `experiments.syncWebAssembly: true`
 
 ## Implementation
 
-The code is quite simple, which is just a wrapper of Cloudflare [`brotli-decompressor`](https://crates.io/crates/brotli-decompressor) crate (other than the well-known [`brotli`](https://crates.io/crates/brotli) crate)
+The code is quite simple, which is just a wrapper of DropBox [`brotli-decompressor`](https://crates.io/crates/brotli-decompressor) crate (other than Cloudflare [`brotli`](https://crates.io/crates/brotli) crate, though `brotli` depends on `brotli-decompressor`)
 
 Build configuration such as `opt-level = "s"` and no `lto`, are fine-tuned with manual tests, to make the bundle as small as possible
 
@@ -27,7 +27,7 @@ The package is at least used by myself in my blog [`mylmoe`](https://github.com/
 
 - [brotli-wasm](https://github.com/httptoolkit/brotli-wasm): A reliable compressor and decompressor for Brotli, supporting node & browsers via wasm. If you need a compressor, use it. Actively maintained by an organization.
 
-More alternatives are available in [brotli-wasm](https://github.com/httptoolkit/brotli-wasm) *Alternatives* section
+More alternatives are available in [brotli-wasm](https://github.com/httptoolkit/brotli-wasm) _Alternatives_ section
 
 One surprising thing is, in `js` folder of the offical [google/brotli](https://github.com/google/brotli) repository, there is a pure JavaScript decompressor implementation, which is even a little smaller than this package in size. However, it is not published on NPM. I can not imagine the reason and since that, I do not suggest you to use it.
 
