@@ -15,8 +15,7 @@ documentation = "https://github.com/ustclug-dev/brotli-dec-wasm#readme"
 crate-type = ["cdylib", "rlib"]
 
 [features]
-default = ["size", "stream"]
-stream = []
+default = ["size"]
 size = ["wee_alloc"]
 dev = ["console_error_panic_hook"]
 
