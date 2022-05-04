@@ -6,7 +6,6 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --config webpack.config.cjs",
-    "dev": "http-server -c-1",
     "serve": "http-server -c-1"
   },
   "author": "",

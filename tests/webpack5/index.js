@@ -6,16 +6,17 @@ const output = new Uint8Array([
   173,
 ])
 
-import('brotli-dec-wasm').then(({ brotliDec, BrotliDecStream, BrotliDecStreamResultCode }) => {
+import('brotli-dec-wasm').then(({ brotliDec, BrotliDecStream, BrotliDecStreamResult }) => {
   const res1 = brotliDec(input)
   console.log(res1)
   console.assert(res1.length === output.length)
   res1.forEach((v, i) => console.assert(v === output[i]))
 
   const dec = new BrotliDecStream()
-  const { code, output: res2 } = dec.dec(input, 2048)
-  console.log(code)
+  const res2 = dec.dec(input, 2048)
+  const code = dec.result()
   console.log(res2)
-  console.assert(code === BrotliDecStreamResultCode.ResultSuccess)
+  console.log(code)
+  console.assert(code === BrotliDecStreamResult.ResultSuccess)
   res2.forEach((v, i) => console.assert(v === output[i]))
 })

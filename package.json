@@ -32,6 +32,6 @@
   "main": "pkg/index.js",
   "module": "pkg/index.js",
   "exports": "./pkg/index.js",
-  "types": "index.d.ts",
+  "types": "pkg/index.d.ts",
   "sideEffects": false
 }
