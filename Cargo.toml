@@ -1,12 +1,15 @@
 [package]
 name = "brotli-dec-wasm"
 version = "1.2.0"
-authors = ["myl7 <myl@myl.moe> (https://myl.moe)"]
+authors = ["myl7 <myl@myl.moe>"]
 edition = "2018"
 license = "MIT"
-description = "Brotli decompressor for browsers and web workers with WASM, but still having a small size (~300K)"
-keywords = ["brotli-decompressor", "wasm", "rust"]
-repository = "git+ssh://git@github.com/ustclug-dev/brotli-dec-wasm.git"
+description = "Brotli decompressor for browsers and web workers with WASM, but still having a small size (about 300KB)"
+keywords = ["brotli", "brotli-decompressor", "wasm", "rust"]
+categories = ["wasm"]
+repository = "https://github.com/ustclug-dev/brotli-dec-wasm.git"
+homepage = "https://github.com/ustclug-dev/brotli-dec-wasm"
+documentation = "https://github.com/ustclug-dev/brotli-dec-wasm#readme"
 
 [lib]
 crate-type = ["cdylib", "rlib"]
