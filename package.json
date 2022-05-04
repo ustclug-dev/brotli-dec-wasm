@@ -29,8 +29,8 @@
     "pkg/brotli_dec_wasm_bg.js",
     "pkg/brotli_dec_wasm.d.ts"
   ],
-  "main": "pkg/brotli-dec-wasm.js",
-  "module": "pkg/brotli-dec-wasm.js",
-  "types": "pkg/brotli-dec-wasm.d.ts",
+  "main": "index.js",
+  "module": "index.js",
+  "types": "index.d.ts",
   "sideEffects": false
 }
