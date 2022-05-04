@@ -38,4 +38,6 @@ One surprising thing is, in `js` folder of the offical [google/brotli](https://g
 
 ## License
 
-MIT
+SPDX-License-Identifier: MIT
+
+Unless otherwise explicitly stated
