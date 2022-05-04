@@ -1,6 +1,10 @@
+#[cfg(feature = "stream")]
+mod stream;
 mod utils;
 
 use brotli_decompressor::BrotliDecompress;
+#[cfg(feature = "stream")]
+pub use stream::*;
 use wasm_bindgen::prelude::*;
 
 #[cfg(feature = "wee_alloc")]
