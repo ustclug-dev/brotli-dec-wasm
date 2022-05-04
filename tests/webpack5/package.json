@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --config webpack.config.cjs"
+    "build": "webpack --config webpack.config.cjs",
+    "dev": "http-server -c-1",
+    "serve": "http-server -c-1"
   },
   "author": "",
   "license": "MIT",
@@ -14,6 +16,7 @@
   },
   "type": "module",
   "devDependencies": {
+    "http-server": "^14.1.0",
     "webpack": "^5.52.0",
     "webpack-cli": "^4.8.0"
   }
