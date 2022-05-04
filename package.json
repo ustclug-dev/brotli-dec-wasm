@@ -24,10 +24,10 @@
   },
   "homepage": "https://github.com/ustclug-dev/brotli-dec-wasm#readme",
   "files": [
-    "pkg/brotli_dec_wasm_bg.wasm",
-    "pkg/brotli_dec_wasm.js",
-    "pkg/brotli_dec_wasm_bg.js",
-    "pkg/brotli_dec_wasm.d.ts"
+    "pkg/index_bg.wasm",
+    "pkg/index.js",
+    "pkg/index_bg.js",
+    "pkg/index.d.ts"
   ],
   "main": "pkg/index.js",
   "module": "pkg/index.js",
