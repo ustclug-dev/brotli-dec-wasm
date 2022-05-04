@@ -1,10 +1,4 @@
-on:
-  push:
-    branches:
-      - goshujin-sama
-  pull_request:
-    branches:
-      - goshujin-sama
+on: [push, pull_request]
 jobs:
   ci:
     runs-on: ubuntu-latest
