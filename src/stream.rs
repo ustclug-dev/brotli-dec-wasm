@@ -9,11 +9,19 @@ pub struct BrotliDecStream {
 }
 
 #[wasm_bindgen]
+#[repr(u8)]
 pub enum BrotliDecStreamResultCode {
     ResultFailure = 0,
     ResultSuccess = 1,
     NeedsMoreInput = 2,
     NeedsMoreOutput = 3,
+}
+
+#[wasm_bindgen(module = "/src/utils.js")]
+extern "C" {
+    pub type BrotliDecStreamResult;
+    #[wasm_bindgen(constructor)]
+    fn new(code: u8, output: Box<[u8]>) -> BrotliDecStreamResult;
 }
 
 #[wasm_bindgen]
@@ -28,15 +36,17 @@ impl BrotliDecStream {
         }
     }
 
-    pub fn dec(&mut self, input: Box<[u8]>, output_size: usize) -> Result<Box<[u8]>, JsValue> {
-        // 1 more byte to store the result code,
-        // because returning a JS object including Vec is (a little) hard with wasm-bindgen
-        let mut output = vec![0; output_size + 1];
+    pub fn dec(
+        &mut self,
+        input: Box<[u8]>,
+        output_size: usize,
+    ) -> Result<BrotliDecStreamResult, JsValue> {
+        let mut output = vec![0; output_size];
         let mut available_in = input.len();
         let mut input_offset = 0;
         let mut available_out = output_size;
         let mut output_offset = 0;
-        let res = BrotliDecompressStream(
+        match BrotliDecompressStream(
             &mut available_in,
             &mut input_offset,
             &input,
@@ -45,20 +55,28 @@ impl BrotliDecStream {
             &mut output,
             &mut self.total_out,
             &mut self.state,
-        );
-        return match res {
+        ) {
             BrotliResult::ResultFailure => {
                 Err(JsValue::from_str("Brotli streaming decompressing failed"))
             }
-            BrotliResult::NeedsMoreOutput => {
-                output[output_size + 1] = BrotliDecStreamResultCode::NeedsMoreOutput as u8;
-                Ok(output.into_boxed_slice())
+            BrotliResult::NeedsMoreOutput => Ok(BrotliDecStreamResult::new(
+                BrotliDecStreamResultCode::NeedsMoreOutput as u8,
+                output.into_boxed_slice(),
+            )),
+            BrotliResult::ResultSuccess => {
+                output.truncate(output_offset);
+                Ok(BrotliDecStreamResult::new(
+                    BrotliDecStreamResultCode::ResultSuccess as u8,
+                    output.into_boxed_slice(),
+                ))
             }
-            BrotliResult::NeedsMoreInput | BrotliResult::ResultSuccess => {
-                output.resize(output_offset + 1, 0);
-                output[output_offset] = res as u8;
-                Ok(output.into_boxed_slice())
+            BrotliResult::NeedsMoreInput => {
+                output.truncate(output_offset);
+                Ok(BrotliDecStreamResult::new(
+                    BrotliDecStreamResultCode::NeedsMoreInput as u8,
+                    output.into_boxed_slice(),
+                ))
             }
-        };
+        }
     }
 }

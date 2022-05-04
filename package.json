@@ -5,7 +5,7 @@
   "scripts": {
     "pretest": "bash tests/pretest.sh",
     "test": "bash tests/test.sh",
-    "build": "wasm-pack build --out-name brotli-dec-wasm"
+    "build": "wasm-pack build --out-name index"
   },
   "repository": {
     "type": "git",
@@ -29,8 +29,9 @@
     "pkg/brotli_dec_wasm_bg.js",
     "pkg/brotli_dec_wasm.d.ts"
   ],
-  "main": "index.js",
-  "module": "index.js",
+  "main": "pkg/index.js",
+  "module": "pkg/index.js",
+  "exports": "./pkg/index.js",
   "types": "index.d.ts",
   "sideEffects": false
 }
