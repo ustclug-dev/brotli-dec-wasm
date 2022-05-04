@@ -1,8 +1,10 @@
+mod err;
 #[cfg(feature = "stream")]
 mod stream;
 mod utils;
 
 use brotli_decompressor::BrotliDecompress;
+pub use err::*;
 #[cfg(feature = "stream")]
 pub use stream::*;
 use wasm_bindgen::prelude::*;
@@ -11,6 +13,7 @@ use wasm_bindgen::prelude::*;
 #[global_allocator]
 static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 
+/// No error reporting included. To get the detailed error code, use `BrotliDecStream`.
 #[wasm_bindgen(js_name = brotliDec)]
 pub fn brotli_dec(input: Box<[u8]>) -> Result<Box<[u8]>, JsValue> {
     let mut output = Vec::new();

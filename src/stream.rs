@@ -2,26 +2,22 @@ use brotli_decompressor::{BrotliDecompressStream, BrotliResult, BrotliState, Sta
 use wasm_bindgen::prelude::*;
 
 #[wasm_bindgen]
-pub struct BrotliDecStream {
-    state: BrotliState<StandardAlloc, StandardAlloc, StandardAlloc>,
-    #[wasm_bindgen(js_name = totalOut)]
-    pub total_out: usize,
-}
-
-#[wasm_bindgen]
-#[repr(u8)]
-pub enum BrotliDecStreamResultCode {
-    ResultFailure = 0,
+#[repr(i32)]
+pub enum BrotliDecStreamResult {
+    /// The stream is just inited and have not been runned.
+    /// `BrotliResult` uses `ResultFailure = 0`, but as we will convert `ResultFailure` to a negative actual error code,
+    /// 0 is reused as no input currently.
+    Init = 0,
     ResultSuccess = 1,
     NeedsMoreInput = 2,
     NeedsMoreOutput = 3,
 }
 
-#[wasm_bindgen(module = "/src/utils.js")]
-extern "C" {
-    pub type BrotliDecStreamResult;
-    #[wasm_bindgen(constructor)]
-    fn new(code: u8, output: Box<[u8]>) -> BrotliDecStreamResult;
+#[wasm_bindgen]
+pub struct BrotliDecStream {
+    state: BrotliState<StandardAlloc, StandardAlloc, StandardAlloc>,
+    result: i32,
+    total_out: usize,
 }
 
 #[wasm_bindgen]
@@ -32,15 +28,12 @@ impl BrotliDecStream {
         let alloc = StandardAlloc::default();
         Self {
             state: BrotliState::new(alloc, alloc, alloc),
+            result: BrotliDecStreamResult::Init as i32,
             total_out: 0,
         }
     }
 
-    pub fn dec(
-        &mut self,
-        input: Box<[u8]>,
-        output_size: usize,
-    ) -> Result<BrotliDecStreamResult, JsValue> {
+    pub fn dec(&mut self, input: Box<[u8]>, output_size: usize) -> Result<Box<[u8]>, JsValue> {
         let mut output = vec![0; output_size];
         let mut available_in = input.len();
         let mut input_offset = 0;
@@ -57,26 +50,32 @@ impl BrotliDecStream {
             &mut self.state,
         ) {
             BrotliResult::ResultFailure => {
+                // It should be a negative error code, otherwise brotli-decompressor goes wrong
+                self.result = self.state.error_code as i32;
                 Err(JsValue::from_str("Brotli streaming decompressing failed"))
             }
-            BrotliResult::NeedsMoreOutput => Ok(BrotliDecStreamResult::new(
-                BrotliDecStreamResultCode::NeedsMoreOutput as u8,
-                output.into_boxed_slice(),
-            )),
+            BrotliResult::NeedsMoreOutput => {
+                self.result = BrotliDecStreamResult::NeedsMoreOutput as i32;
+                Ok(output.into_boxed_slice())
+            }
             BrotliResult::ResultSuccess => {
                 output.truncate(output_offset);
-                Ok(BrotliDecStreamResult::new(
-                    BrotliDecStreamResultCode::ResultSuccess as u8,
-                    output.into_boxed_slice(),
-                ))
+                self.result = BrotliDecStreamResult::ResultSuccess as i32;
+                Ok(output.into_boxed_slice())
             }
             BrotliResult::NeedsMoreInput => {
                 output.truncate(output_offset);
-                Ok(BrotliDecStreamResult::new(
-                    BrotliDecStreamResultCode::NeedsMoreInput as u8,
-                    output.into_boxed_slice(),
-                ))
+                self.result = BrotliDecStreamResult::NeedsMoreInput as i32;
+                Ok(output.into_boxed_slice())
             }
         }
+    }
+
+    pub fn total_out(&self) -> usize {
+        self.total_out
+    }
+
+    pub fn result(&self) -> i32 {
+        self.result
     }
 }
