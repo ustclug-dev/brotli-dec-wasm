@@ -15,8 +15,8 @@ If you are looking for a compressor, see [Alternatives](#alternatives)
 > BREAKING CHANGE: Since webpack 5 WebAssembly is not enabled by default and flagged as experimental feature.
 > You need to enable one of the WebAssembly experiments via 'experiments.asyncWebAssembly: true' (based on async modules) or 'experiments.syncWebAssembly: true' (like webpack 4, deprecated).
 
-Set `experiments.syncWebAssembly: true` or `experiments.asyncWebAssembly: true`.
-An example of `experiments.asyncWebAssembly: true` is available as a test in [`tests/webpack5`](tests/webpack5).
+Set `experiments.syncWebAssembly: true` for old code.
+As for `experiments.asyncWebAssembly: true`, an example is available as a test in [`tests/webpack5`](tests/webpack5).
 
 ## Implementation
 
