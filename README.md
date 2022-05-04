@@ -4,6 +4,10 @@
 
 If you are looking for a compressor, see [Alternatives](#alternatives)
 
+## Features
+
+- [Streaming](https://brotli.org/decode.html#a234) support
+
 ## Problems
 
 ### Broken in webpack 5
