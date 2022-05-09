@@ -18,6 +18,7 @@ pub struct BrotliDecStream {
     state: BrotliState<StandardAlloc, StandardAlloc, StandardAlloc>,
     result: i32,
     total_out: usize,
+    last_input_offset: usize,
 }
 
 #[wasm_bindgen]
@@ -30,6 +31,7 @@ impl BrotliDecStream {
             state: BrotliState::new(alloc, alloc, alloc),
             result: BrotliDecStreamResult::Init as i32,
             total_out: 0,
+            last_input_offset: 0,
         }
     }
 
@@ -52,20 +54,24 @@ impl BrotliDecStream {
             BrotliResult::ResultFailure => {
                 // It should be a negative error code, otherwise brotli-decompressor goes wrong
                 self.result = self.state.error_code as i32;
+                self.last_input_offset = 0;
                 Err(JsValue::from_str("Brotli streaming decompressing failed"))
             }
             BrotliResult::NeedsMoreOutput => {
                 self.result = BrotliDecStreamResult::NeedsMoreOutput as i32;
+                self.last_input_offset = input_offset;
                 Ok(output.into_boxed_slice())
             }
             BrotliResult::ResultSuccess => {
                 output.truncate(output_offset);
                 self.result = BrotliDecStreamResult::ResultSuccess as i32;
+                self.last_input_offset = input.len();
                 Ok(output.into_boxed_slice())
             }
             BrotliResult::NeedsMoreInput => {
                 output.truncate(output_offset);
                 self.result = BrotliDecStreamResult::NeedsMoreInput as i32;
+                self.last_input_offset = input.len();
                 Ok(output.into_boxed_slice())
             }
         }
@@ -77,5 +83,9 @@ impl BrotliDecStream {
 
     pub fn result(&self) -> i32 {
         self.result
+    }
+
+    pub fn last_input_offset(&self) -> usize {
+        self.last_input_offset
     }
 }
