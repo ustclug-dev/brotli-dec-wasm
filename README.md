@@ -8,6 +8,38 @@ If you are looking for a compressor, see [Alternatives](#alternatives)
 
 - [Streaming](https://brotli.org/decode.html#a234) support
 
+## Quick start
+
+```ts
+// One-shot decompressing
+const brotli = await import("brotli-dec-wasm")
+const output = brotli.brotliDec(input)
+
+// Streaming decompressing
+const brotli = await import("brotli-dec-wasm")
+const stream = new brotli.BrotliDecStream()
+// Set max output buffer size as 1024
+const output1 = stream.dec(input1, 1024)
+const result = stream.result()
+// If result = NeedsMoreInput = 1, put more input into the stream to get next output
+if result = brotli.BrotliDecStreamResult.NeedsMoreInput {
+  const output2 = stream.dec(input2, 1024)
+}
+// If result = NeedsMoreOutput = 2, slice the input and take another output buffer out
+if result = brotli.BrotliDecStreamResult.NeedsMoreOutput {
+  const input1r = input1.slice(steam.lastInputOffset())
+  const output2 = stream.dec(input1r, 1024)
+}
+// If result = ResultSuccess = 3, decompressing succeeded and finished. No more input is required.
+if result = brotli.BrotliDecStreamResult.ResultSuccess {
+  console.log(output1)
+}
+// If result < 0, an error occurs. You may refer BrotliDecStreamErrCode to lookup the error code
+if result < 0 {
+  console.error('Brotli decompressing failed')
+}
+```
+
 ## Problems
 
 ### Broken in webpack 5
