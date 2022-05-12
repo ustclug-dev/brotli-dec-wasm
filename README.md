@@ -22,7 +22,7 @@ As for `experiments.asyncWebAssembly: true`, an example is available as a test i
 
 The code is quite simple, which is just a wrapper of [`brotli-decompressor`](https://crates.io/crates/brotli-decompressor) crate (other than [`brotli`](https://crates.io/crates/brotli) crate, though `brotli` depends on `brotli-decompressor`)
 
-Build configuration such as `opt-level = "s"` and no `lto`, are fine-tuned with manual tests, to make the bundle as small as possible
+Build configuration such as `opt-level = "s"`, are fine-tuned with manual tests, to make the bundle as small as possible
 
 ## Maintenance
 
