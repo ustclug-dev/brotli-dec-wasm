@@ -35,7 +35,7 @@ if (result == brotli.BrotliDecStreamResult.ResultSuccess) {
   console.log(output1)
 }
 // If result < 0, an error occurs. You may refer BrotliDecStreamErrCode to lookup the error code.
-if result < 0 {
+if (result < 0) {
   console.error('Brotli decompressing failed')
 }
 ```
