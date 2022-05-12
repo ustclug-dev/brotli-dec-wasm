@@ -79,6 +79,7 @@ impl BrotliDecStream {
         }
     }
 
+    #[wasm_bindgen(js_name = totalOut)]
     pub fn total_out(&self) -> usize {
         self.total_out
     }
@@ -87,6 +88,7 @@ impl BrotliDecStream {
         self.result
     }
 
+    #[wasm_bindgen(js_name = lastInputOffset)]
     pub fn last_input_offset(&self) -> usize {
         self.last_input_offset
     }
