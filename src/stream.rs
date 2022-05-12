@@ -1,3 +1,4 @@
+use crate::utils;
 use brotli_decompressor::{BrotliDecompressStream, BrotliResult, BrotliState, StandardAlloc};
 use wasm_bindgen::prelude::*;
 
@@ -26,6 +27,7 @@ impl BrotliDecStream {
     #[allow(clippy::new_without_default)]
     #[wasm_bindgen(constructor)]
     pub fn new() -> Self {
+        utils::set_panic_hook();
         let alloc = StandardAlloc::default();
         Self {
             state: BrotliState::new(alloc, alloc, alloc),
