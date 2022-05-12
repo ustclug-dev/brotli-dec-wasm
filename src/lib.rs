@@ -1,10 +1,8 @@
-mod err;
-mod stream;
+pub mod err;
+pub mod stream;
 mod utils;
 
 use brotli_decompressor::BrotliDecompress;
-pub use err::*;
-pub use stream::*;
 use wasm_bindgen::prelude::*;
 
 #[cfg(feature = "wee_alloc")]
