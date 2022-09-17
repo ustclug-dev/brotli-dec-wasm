@@ -5,9 +5,10 @@ mod utils;
 use brotli_decompressor::BrotliDecompress;
 use wasm_bindgen::prelude::*;
 
-#[cfg(feature = "wee_alloc")]
-#[global_allocator]
-static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
+// wee_alloc has been deprecated so this is disabled. Left for reference.
+// #[cfg(feature = "wee_alloc")]
+// #[global_allocator]
+// static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 
 /// No error reporting included. To get the detailed error code, use `BrotliDecStream`.
 #[wasm_bindgen(js_name = brotliDec)]

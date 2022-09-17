@@ -1,6 +1,6 @@
 {
   "name": "brotli-dec-wasm",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "Brotli decompressor for browsers and web workers with WASM, but still having a small size (about 300KB)",
   "scripts": {
     "pretest": "bash tests/pretest.sh",
