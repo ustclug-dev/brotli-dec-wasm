@@ -68,6 +68,12 @@ More alternatives are available in [brotli-wasm](https://github.com/httptoolkit/
 
 One surprising thing is, in `js` folder of the offical [google/brotli](https://github.com/google/brotli) repository, there is a pure JavaScript decompressor implementation, which is even a little smaller than this package in size. However, it is not published on NPM. I can not imagine the reason and since that, I do not suggest you to use it.
 
+## Security
+
+At least **>= 1.3.3**
+
+- < v1.3.3: Rust dependency wee_alloc is unmaintained and has open serious issues. Use version >= 1.3.3 to replace it with the default Rust allocator on wasm32 targets.
+
 ## License
 
 SPDX-License-Identifier: MIT
