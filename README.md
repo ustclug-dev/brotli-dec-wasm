@@ -1,6 +1,6 @@
 # brotli-dec-wasm
 
-[Brotli](https://github.com/google/brotli) decompressor for browsers and web workers with WASM, but still having a small size (about 300KB)
+[Brotli](https://github.com/google/brotli) decompressor for browsers and web workers with WASM, which still has a small size (about 300KB)
 
 If you are looking for a compressor, see [Alternatives](#alternatives)
 
@@ -9,6 +9,8 @@ If you are looking for a compressor, see [Alternatives](#alternatives)
 - [Streaming](https://brotli.org/decode.html#a234) support
 
 ## Quick start
+
+**NOTICE: This needs update!**
 
 ```ts
 // One-shot decompressing
@@ -47,8 +49,7 @@ if (result < 0) {
 > BREAKING CHANGE: Since webpack 5 WebAssembly is not enabled by default and flagged as experimental feature.
 > You need to enable one of the WebAssembly experiments via 'experiments.asyncWebAssembly: true' (based on async modules) or 'experiments.syncWebAssembly: true' (like webpack 4, deprecated).
 
-Set `experiments.syncWebAssembly: true` for old code.
-As for `experiments.asyncWebAssembly: true`, an example is available as a test in [`tests/webpack5`](tests/webpack5).
+Set `experiments.syncWebAssembly: true` for old code, `experiments.asyncWebAssembly: true` for new code.
 
 ## Implementation
 
@@ -76,6 +77,8 @@ At least **>= 1.3.3**
 
 ## License
 
-SPDX-License-Identifier: MIT
+Copyright (C) myl7
 
-Unless otherwise explicitly stated
+SPDX-License-Identifier: MIT OR Apache-2.0
+
+At your option. Unless otherwise explicitly stated.
