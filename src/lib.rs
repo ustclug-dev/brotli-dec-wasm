@@ -5,13 +5,9 @@ mod utils;
 use brotli_decompressor::BrotliDecompress;
 use wasm_bindgen::prelude::*;
 
-// wee_alloc has been deprecated so this is disabled. Left for reference.
-// #[cfg(feature = "wee_alloc")]
-// #[global_allocator]
-// static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
-
-/// No error reporting included. To get the detailed error code, use `BrotliDecStream`.
-#[wasm_bindgen(js_name = brotliDec)]
+/// No error reporting included.
+/// To get the detailed error code, use [`stream::BrotliDecStream`].
+#[wasm_bindgen]
 pub fn brotli_dec(input: Box<[u8]>) -> Result<Box<[u8]>, JsValue> {
     utils::set_panic_hook();
     let mut output = Vec::new();
@@ -19,4 +15,12 @@ pub fn brotli_dec(input: Box<[u8]>) -> Result<Box<[u8]>, JsValue> {
         Ok(_) => Ok(output.into_boxed_slice()),
         Err(_) => Err(JsValue::from_str("Brotli decompressing failed")),
     }
+}
+
+/// See [`brotli_dec`].
+///
+/// For drop-in replacement of `brotli-wasm`.
+#[wasm_bindgen(js_name = decompress)]
+pub fn brotli_dec_alt(buf: Box<[u8]>) -> Result<Box<[u8]>, JsValue> {
+    brotli_dec(buf)
 }

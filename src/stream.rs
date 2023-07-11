@@ -2,13 +2,33 @@ use crate::utils;
 use brotli_decompressor::{BrotliDecompressStream, BrotliResult, BrotliState, StandardAlloc};
 use wasm_bindgen::prelude::*;
 
+/// Returned by every successful (de)compression.
+//
+// Use `getter_with_clone` because `buf` does not implement `Copy`.
+#[wasm_bindgen(getter_with_clone)]
+pub struct BrotliStreamResult {
+    /// Result code.
+    ///
+    /// See [`BrotliStreamResultCode`] for available values.
+    ///
+    /// When error, the error code is not passed here but rather goes to `Err`.
+    pub code: BrotliStreamResultCode,
+    /// Output buffer
+    pub buf: Box<[u8]>,
+    /// Consumed bytes of the input buffer
+    pub input_offset: usize,
+}
+
 #[wasm_bindgen]
-#[repr(i32)]
-pub enum BrotliDecStreamResult {
-    /// The stream is just inited and have not been runned.
-    /// `BrotliResult` uses `ResultFailure = 0`, but as we will convert `ResultFailure` to a negative actual error code,
-    /// 0 is reused as no input currently.
-    Init = 0,
+/// Same as [`brotli_decompressor::BrotliResult`] except [`brotli_decompressor::BrotliResult::ResultFailure`].
+///
+/// Always `> 0`.
+///
+/// `ResultFailure` is removed
+/// because we will convert the failure to an actual negative error code (if available) and pass it elsewhere.
+#[repr(usize)]
+#[derive(Copy, Clone)]
+pub enum BrotliStreamResultCode {
     ResultSuccess = 1,
     NeedsMoreInput = 2,
     NeedsMoreOutput = 3,
@@ -17,9 +37,7 @@ pub enum BrotliDecStreamResult {
 #[wasm_bindgen]
 pub struct BrotliDecStream {
     state: BrotliState<StandardAlloc, StandardAlloc, StandardAlloc>,
-    result: i32,
     total_out: usize,
-    last_input_offset: usize,
 }
 
 #[wasm_bindgen]
@@ -31,13 +49,15 @@ impl BrotliDecStream {
         let alloc = StandardAlloc::default();
         Self {
             state: BrotliState::new(alloc, alloc, alloc),
-            result: BrotliDecStreamResult::Init as i32,
             total_out: 0,
-            last_input_offset: 0,
         }
     }
 
-    pub fn dec(&mut self, input: Box<[u8]>, output_size: usize) -> Result<Box<[u8]>, JsValue> {
+    pub fn dec(
+        &mut self,
+        input: Box<[u8]>,
+        output_size: usize,
+    ) -> Result<BrotliStreamResult, JsError> {
         let mut output = vec![0; output_size];
         let mut available_in = input.len();
         let mut input_offset = 0;
@@ -54,42 +74,50 @@ impl BrotliDecStream {
             &mut self.state,
         ) {
             BrotliResult::ResultFailure => {
-                // It should be a negative error code, otherwise brotli-decompressor goes wrong
-                self.result = self.state.error_code as i32;
-                self.last_input_offset = 0;
-                Err(JsValue::from_str("Brotli streaming decompressing failed"))
+                // It should be a negative error code
+                let err_code = self.state.error_code as i32;
+                Err(JsError::new(&format!(
+                    "Brotli streaming decompress failed: Error code {}",
+                    err_code
+                )))
             }
-            BrotliResult::NeedsMoreOutput => {
-                self.result = BrotliDecStreamResult::NeedsMoreOutput as i32;
-                self.last_input_offset = input_offset;
-                Ok(output.into_boxed_slice())
-            }
+            BrotliResult::NeedsMoreOutput => Ok(BrotliStreamResult {
+                code: BrotliStreamResultCode::NeedsMoreOutput,
+                buf: output.into_boxed_slice(),
+                input_offset,
+            }),
             BrotliResult::ResultSuccess => {
                 output.truncate(output_offset);
-                self.result = BrotliDecStreamResult::ResultSuccess as i32;
-                self.last_input_offset = input.len();
-                Ok(output.into_boxed_slice())
+                Ok(BrotliStreamResult {
+                    code: BrotliStreamResultCode::ResultSuccess,
+                    buf: output.into_boxed_slice(),
+                    input_offset,
+                })
             }
             BrotliResult::NeedsMoreInput => {
                 output.truncate(output_offset);
-                self.result = BrotliDecStreamResult::NeedsMoreInput as i32;
-                self.last_input_offset = input.len();
-                Ok(output.into_boxed_slice())
+                Ok(BrotliStreamResult {
+                    code: BrotliStreamResultCode::NeedsMoreInput,
+                    buf: output.into_boxed_slice(),
+                    input_offset,
+                })
             }
         }
     }
 
-    #[wasm_bindgen(js_name = totalOut)]
+    /// See [`Self::dec()`].
+    ///
+    /// For drop-in replacement of `brotli-wasm`.
+    #[wasm_bindgen(js_name = decompress)]
+    pub fn dec_alt(
+        &mut self,
+        input: Box<[u8]>,
+        output_size: usize,
+    ) -> Result<BrotliStreamResult, JsError> {
+        self.dec(input, output_size)
+    }
+
     pub fn total_out(&self) -> usize {
         self.total_out
-    }
-
-    pub fn result(&self) -> i32 {
-        self.result
-    }
-
-    #[wasm_bindgen(js_name = lastInputOffset)]
-    pub fn last_input_offset(&self) -> usize {
-        self.last_input_offset
     }
 }

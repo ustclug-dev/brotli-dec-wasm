@@ -21,7 +21,7 @@ use wasm_bindgen::prelude::*;
 /// NOTICE: All numbers are reversed to positive, required by wasm_bindgen.
 #[wasm_bindgen]
 #[allow(non_camel_case_types)]
-#[repr(i32)]
+#[repr(isize)]
 pub enum BrotliDecStreamErrCode {
     /* Errors caused by invalid input */
     BROTLI_DECODER_ERROR_FORMAT_EXUBERANT_NIBBLE = 1,

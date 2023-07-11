@@ -1,6 +1,6 @@
 {
   "name": "brotli-dec-wasm",
-  "version": "1.3.3",
+  "version": "2.0.0",
   "description": "Brotli decompressor for browsers and web workers with WASM, but still having a small size (about 300KB)",
   "scripts": {
     "build": "wasm-pack build --out-name index"
@@ -25,11 +25,13 @@
     "pkg/index_bg.wasm",
     "pkg/index.js",
     "pkg/index_bg.js",
-    "pkg/index.d.ts"
+    "pkg/index.d.ts",
+    "index.js",
+    "index.d.ts"
   ],
-  "main": "pkg/index.js",
-  "module": "pkg/index.js",
-  "exports": "./pkg/index.js",
-  "types": "pkg/index.d.ts",
+  "main": "index.js",
+  "module": "index.js",
+  "exports": "./index.js",
+  "types": "index.d.ts",
   "sideEffects": false
 }
