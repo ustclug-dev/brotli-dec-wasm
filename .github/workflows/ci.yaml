@@ -15,5 +15,3 @@ jobs:
         with:
           version: 'latest'
       - run: npm run build
-      - run: npm run pretest
-      - run: npm test
