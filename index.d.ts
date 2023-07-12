@@ -1,3 +1,5 @@
-export * from './pkg/index'
+import type { BrotliDecStream } from './pkg'
 
-export type DecompressStream = import('./pkg/index').BrotliDecStream
+export * from './pkg'
+
+export type DecompressStream = BrotliDecStream
