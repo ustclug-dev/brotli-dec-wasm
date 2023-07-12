@@ -77,8 +77,7 @@ impl BrotliDecStream {
                 // It should be a negative error code
                 let err_code = self.state.error_code as i32;
                 Err(JsError::new(&format!(
-                    "Brotli streaming decompress failed: Error code {}",
-                    err_code
+                    "Brotli streaming decompress failed: Error code {err_code}"
                 )))
             }
             BrotliResult::NeedsMoreOutput => Ok(BrotliStreamResult {

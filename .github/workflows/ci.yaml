@@ -1,17 +1,46 @@
-on: [push, pull_request]
+name: CI
+on:
+  push:
+    branches: [goshujin-sama]
+  pull_request:
+    branches: [goshujin-sama]
 jobs:
-  ci:
+  rust_test:
+    name: Rust test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v3
+      - uses: dtolnay/rust-toolchain@stable
         with:
-          node-version: 16
-      - uses: actions-rs/toolchain@v1
+          components: rustfmt, clippy
+      # - run: cargo test --all-features
+      - run: cargo fmt --check
+      - run: cargo clippy --all-features -- --no-deps -Dwarnings
+  js_test:
+    name: JS test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
-          toolchain: nightly
-          override: true
-      - uses: jetli/wasm-pack-action@v0.3.0
+          node-version: latest
+      - name: Install wasm-pack
+        run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
+      - name: Download brotli-wasm for tests
+        uses: actions/checkout@v3
         with:
-          version: 'latest'
+          repository: httptoolkit/brotli-wasm
+          # ref: v1.3.1
+          path: test/brotli-wasm
+      - name: Modify brotli-wasm for tests
+        run: |
+          test/test.sh preinstall
+          test/test.sh pretest
+      - name: Install brotli-wasm dependencies for tests
+        run: npm install
+        working-directory: test/brotli-wasm
+      - name: Build brotli-wasm for tests
+        run: npm run build
+        working-directory: test/brotli-wasm
       - run: npm run build
+      - run: npm run test
