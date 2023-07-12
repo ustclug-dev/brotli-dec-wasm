@@ -1,7 +1,10 @@
-import type * as BrotliDecWasm from './pkg'
+import type * as BrotliDecWasm from './pkg/index'
 
-export type * from './pkg'
+export type * from './pkg/index'
 
-export type BrotliDecWasmType = typeof BrotliDecWasm
+export type BrotliDecWasmType = typeof BrotliDecWasm & {
+  DecompressStream: typeof BrotliDecWasm.BrotliDecStream
+}
 
-export default Promise<BrotliDecWasmType>
+declare const BrotliDecWasmTypePromise: Promise<BrotliDecWasmType>
+export default BrotliDecWasmTypePromise
