@@ -120,3 +120,34 @@ impl BrotliDecStream {
         self.total_out
     }
 }
+
+/// See [`BrotliDecStream`].
+///
+/// For drop-in replacement of `brotli-wasm`.
+#[wasm_bindgen(js_name = DecompressStream)]
+pub struct BrotliDecStreamAlt {
+    stream: BrotliDecStream,
+}
+
+#[wasm_bindgen(js_class = DecompressStream)]
+impl BrotliDecStreamAlt {
+    #[allow(clippy::new_without_default)]
+    #[wasm_bindgen(constructor)]
+    pub fn new() -> Self {
+        Self {
+            stream: BrotliDecStream::new(),
+        }
+    }
+
+    pub fn decompress(
+        &mut self,
+        input: Box<[u8]>,
+        output_size: usize,
+    ) -> Result<BrotliStreamResult, JsError> {
+        self.stream.dec(input, output_size)
+    }
+
+    pub fn total_out(&self) -> usize {
+        self.stream.total_out()
+    }
+}
