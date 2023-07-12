@@ -13,7 +13,7 @@ pub fn brotli_dec(input: Box<[u8]>) -> Result<Box<[u8]>, JsValue> {
     let mut output = Vec::new();
     match BrotliDecompress(&mut input.as_ref(), &mut output) {
         Ok(_) => Ok(output.into_boxed_slice()),
-        Err(_) => Err(JsValue::from_str("Brotli decompressing failed")),
+        Err(_) => Err(JsValue::from_str("Brotli decompress failed")),
     }
 }
 

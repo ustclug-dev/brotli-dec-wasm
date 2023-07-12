@@ -1,9 +1,5 @@
-import { BrotliDecStream } from './pkg'
-import * as brotliDecWasm from './pkg'
+import init, * as brotliDecWasm from './pkg'
 
-export * from './pkg/index.js'
+export * from './pkg'
 
-export const DecompressStream = BrotliDecStream
-
-// The following bootstrapping code is to match `brotli-wasm`
-export default async () => brotliDecWasm
+export default init().then(() => brotliDecWasm)
