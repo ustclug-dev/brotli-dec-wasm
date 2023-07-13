@@ -22,9 +22,7 @@ You can simply replace `import brotli from 'brotli-wasm'` with `import brotli fr
 
 More detailed usage can be found in [brotli-wasm] _Usage_ section.
 
-Notice that brotli-wasm is going to release a new version for the new stream pattern,
-which is also used by this package, and has not update the README yet.
-If you are urgent, you can refer to the unit tests in [brotli-wasm:test/brotli.spec.ts] to see how to use by examples.
+You can also refer to the unit tests in [brotli-wasm:test/brotli.spec.ts] to see how to use by examples.
 
 [brotli-wasm:test/brotli.spec.ts]: https://github.com/httptoolkit/brotli-wasm/blob/main/test/brotli.spec.ts
 
