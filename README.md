@@ -1,6 +1,9 @@
 # brotli-dec-wasm
 
-![npm](https://img.shields.io/npm/v/brotli-dec-wasm)
+[![npm](https://img.shields.io/npm/v/brotli-dec-wasm)][npm:brotli-dec-wasm]
+[![npm unpacked size](https://img.shields.io/endpoint?url=https%3A%2F%2Fnpm-unpackedsize-badge.myl.workers.dev%2Fbrotli-dec-wasm&color=blue)][npm:brotli-dec-wasm]
+
+[npm:brotli-dec-wasm]: https://npmjs.com/package/brotli-dec-wasm
 
 [Brotli][google/brotli] decompressor for browsers and web workers with WASM, which still has a small size (about
 300KB)
