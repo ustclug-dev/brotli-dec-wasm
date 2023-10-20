@@ -27,12 +27,25 @@
     "pkg/index.d.ts",
     "pkg/index_bg.wasm",
     "pkg/index_bg.wasm.d.ts",
-    "index*",
+    "*.js",
+    "*.d.ts",
     "LICENSE-*"
   ],
+  "type": "module",
   "main": "index.js",
-  "module": "index.js",
-  "exports": "./index.js",
-  "types": "index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./index.js",
+      "types": "./index.d.ts"
+    },
+    "./sync": {
+      "import": "./sync.js",
+      "types": "./sync.d.ts"
+    },
+    "./async": {
+      "import": "./async.js",
+      "types": "./async.d.ts"
+    }
+  },
   "sideEffects": false
 }

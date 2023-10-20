@@ -44,3 +44,5 @@ jobs:
         working-directory: test/brotli-wasm
       - run: npm run build
       - run: npm run test
+      - name: Check ESM module resolution
+        run: npx @arethetypeswrong/cli --ignore-rules cjs-resolves-to-esm --pack

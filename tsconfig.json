@@ -1,0 +1,15 @@
+{
+  "include": [".", "pkg"],
+  "compilerOptions": {
+    "lib": ["es6"],
+    "module": "node16",
+    "target": "es6",
+    "strict": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node16",
+    "downlevelIteration": true,
+    "noEmit": true,
+    "allowJs": true
+  }
+}
