@@ -74,6 +74,4 @@ Copyright (C) myl7
 
 SPDX-License-Identifier: MIT OR Apache-2.0
 
-At your option. Unless otherwise explicitly stated.
-
 [brotli-wasm]: https://github.com/httptoolkit/brotli-wasm
