@@ -1,6 +1,8 @@
 /target
 **/*.rs.bk
-Cargo.lock
+# wasm-pack prefers (generated in the project boilerplate) to ignore the lock file.
+# We include it at least to show the version of the brotli-decompressor crate.
+# Cargo.lock
 bin/
 pkg/
 wasm-pack.log
