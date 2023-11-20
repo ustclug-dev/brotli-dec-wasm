@@ -42,7 +42,8 @@
     "./asset": {
       "import": "./asset.js",
       "types": "./asset.d.ts"
-    }
+    },
+    "./pkg/index_bg.wasm": "./pkg/index_bg.wasm"
   },
   "sideEffects": false
 }
