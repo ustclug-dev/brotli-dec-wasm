@@ -39,13 +39,9 @@
       "types": "./index.d.ts",
       "default": "./index.js"
     },
-    "./sync": {
-      "import": "./sync.js",
-      "types": "./sync.d.ts"
-    },
-    "./async": {
-      "import": "./async.js",
-      "types": "./async.d.ts"
+    "./asset": {
+      "import": "./asset.js",
+      "types": "./asset.d.ts"
     }
   },
   "sideEffects": false

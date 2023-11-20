@@ -1,5 +1,5 @@
 {
-  "include": [".", "pkg"],
+  "include": ["pkg"],
   "compilerOptions": {
     "lib": ["es6"],
     "module": "node16",

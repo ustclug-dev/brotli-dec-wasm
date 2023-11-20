@@ -1,0 +1,22 @@
+{
+  "name": "webpack-asset",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "build": "webpack --config webpack.config.cjs",
+    "dev": "http-server -c-1 ."
+  },
+  "keywords": [],
+  "author": "myl7 <myl@myl.moe> (https://myl.moe)",
+  "license": "MIT OR Apache-2.0",
+  "type": "module",
+  "dependencies": {
+    "brotli-dec-wasm": "link:../.."
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4"
+  }
+}
