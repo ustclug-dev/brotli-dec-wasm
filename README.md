@@ -20,14 +20,22 @@ If you are looking for a compressor, see [Alternatives](#alternatives)
 
 ## Usage
 
-Starting from v2.0.0, this package becomes an exact drop-in replacement of [brotli-wasm].
-You can simply replace `import brotli from 'brotli-wasm'` with `import brotli from 'brotli-dec-wasm'` to switch from or to this package.
+Starting from v2.0.0, this package can be used as an exact drop-in replacement of [brotli-wasm].
+You can simply switch between `import brotli from 'brotli-wasm'` and `import brotli from 'brotli-dec-wasm'`.
 
 More detailed usage can be found in [brotli-wasm] _Usage_ section.
-
-You can also refer to the unit tests in [brotli-wasm:test/brotli.spec.ts] to see how to use by examples.
+Examples are also available in the unit tests in [brotli-wasm:test/brotli.spec.ts] and example projects in [brotli-wasm:example].
+Especially, a [`TransformStream`] example is available in [brotli-wasm:example/web-next-transformstream/app/utils.ts].
 
 [brotli-wasm:test/brotli.spec.ts]: https://github.com/httptoolkit/brotli-wasm/blob/main/test/brotli.spec.ts
+[brotli-wasm:example]: https://github.com/httptoolkit/brotli-wasm/blob/main/example
+[`TransformStream`]: https://developer.mozilla.org/en-US/docs/Web/API/TransformStream
+[brotli-wasm:example/web-next-transformstream/app/utils.ts]: https://github.com/httptoolkit/brotli-wasm/blob/main/example/web-next-transformstream/app/utils.ts
+
+To help colaborating with various bundlers (e.g., webpack, esbuild), we addtionally provide an `asset` entry and export the WASM binary file directly.
+The documentation for the `asset` entry is available at [doc/asset.md], including how to either use the `asset` entry or access the WASM binary file directly.
+
+[doc/asset.md]: doc/asset.md
 
 ## Problems
 
@@ -60,7 +68,7 @@ The package is at least used by myself in my blog [mylmoe], which provides [a pa
 
 More alternatives are available in [brotli-wasm] _Alternatives_ section
 
-One surprising thing is, in `js` folder of the offical [google/brotli] repository, there is a pure JavaScript decompressor implementation, which is even a little smaller than this package in size. However, it is not published on NPM. I can not imagine the reason and since that, I do not suggest you to use it.
+One surprising thing is, in `js` folder of the offical [google/brotli] repository, there is a pure JavaScript decompressor implementation, which is even a little smaller than this package in size. However, it is not published on NPM. I do not know the reason and since that, I do not suggest using it.
 
 ## Security
 
