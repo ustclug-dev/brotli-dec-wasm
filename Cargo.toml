@@ -1,6 +1,6 @@
 [package]
 name = "brotli-dec-wasm"
-version = "2.0.3"
+version = "2.1.0"
 authors = ["myl7 <myl@myl.moe>"]
 edition = "2021"
 license = "MIT OR Apache-2.0"
