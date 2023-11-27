@@ -46,4 +46,4 @@ jobs:
       - run: npm run test
       # >=0.13.2 because of arethetypeswrong/arethetypeswrong.github.io#117.
       - name: Check ESM module resolution
-        run: npx @arethetypeswrong/cli --package '@arethetypeswrong/cli>=0.13.2' --ignore-rules cjs-resolves-to-esm --exclude-entrypoints pkg/index_bg.wasm --pack
+        run: npx '@arethetypeswrong/cli@>=0.13.2' --ignore-rules cjs-resolves-to-esm --exclude-entrypoints pkg/index_bg.wasm --pack
