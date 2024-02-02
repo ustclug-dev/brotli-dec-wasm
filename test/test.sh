@@ -5,6 +5,8 @@ case "$1" in
   "preinstall")
     sed -i '/"wasm-pack": "/d' brotli-wasm/package.json
     sed -i '/"devDependencies": {/a\    "brotli-dec-wasm": "file:../..",' brotli-wasm/package.json
+    # Loose @types/node version to avoid errors when installing
+    sed -i 's/"@types\/node": "^15.6.0"/"@types\/node": "*"/' brotli-wasm/package.json
     ;;
   "pretest")
     sed -i "/import brotliPromise, { type BrotliWasmType } from '..'/a import brotliDecPromise, { type BrotliDecWasmType } from 'brotli-dec-wasm';" brotli-wasm/test/brotli.spec.ts
