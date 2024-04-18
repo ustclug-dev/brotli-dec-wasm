@@ -1,11 +1,9 @@
-import brotliDecWasmPromise from 'brotli-dec-wasm/asset'
-// import wasm from 'brotli-dec-wasm/pkg/index_bg.wasm'
-// import { init } from 'brotli-dec-wasm'
+import wasmUrl from 'brotli-dec-wasm/web/bg.wasm'
+import { default as init, decompress } from 'brotli-dec-wasm/web'
 
 async function main() {
-  const brotliDecWasm = await brotliDecWasmPromise
-  // const brotliDecWasm = await init(wasm)
-  window.brotliDecWasm = brotliDecWasm
+  await init(wasmUrl)
+  window.decompress = decompress
 }
 
 main().then(() => {

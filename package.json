@@ -25,10 +25,10 @@
   },
   "homepage": "https://github.com/ustclug-dev/brotli-dec-wasm#readme",
   "files": [
-    "pkg.web/brotli_dec_wasm_bg.wasm",
-    "pkg.web/brotli_dec_wasm_bg.wasm.d.ts",
-    "pkg.web/brotli_dec_wasm.d.ts",
-    "pkg.web/brotli_dec_wasm.js",
+    "pkg/brotli_dec_wasm_bg.wasm",
+    "pkg/brotli_dec_wasm_bg.wasm.d.ts",
+    "pkg/brotli_dec_wasm.d.ts",
+    "pkg/brotli_dec_wasm.js",
     "*.js",
     "*.d.ts",
     "LICENSE-*"
@@ -38,6 +38,23 @@
   "main": "index.js",
   "module": "index.js",
   "types": "index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "import": "./index.web.js",
+      "default": "./index.web.js"
+    },
+    "./web": {
+      "types": "./pkg/brotli_dec_wasm.d.ts",
+      "import": "./pkg/brotli_dec_wasm.js",
+      "default": "./pkg/brotli_dec_wasm.js"
+    },
+    "./web/bg.wasm": {
+      "types": "./pkg/brotli_dec_wasm_bg.wasm.d.ts",
+      "import": "./pkg/brotli_dec_wasm_bg.wasm",
+      "default": "./pkg/brotli_dec_wasm_bg.wasm"
+    }
+  },
   "devDependencies": {
     "@types/bun": "latest"
   },

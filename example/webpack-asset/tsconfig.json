@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "lib": ["es6"],
+    "module": "node16",
+    "target": "es6",
+    "moduleDetection": "force",
+    "allowJs": true,
+    "moduleResolution": "node16",
+    "verbatimModuleSyntax": true,
+
+    // Best practices
+    "strict": true,
+    "skipLibCheck": true,
+    "noFallthroughCasesInSwitch": true,
+
+    // Some stricter flags
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noPropertyAccessFromIndexSignature": true
+  }
+}
