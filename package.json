@@ -32,18 +32,13 @@
     "LICENSE-*"
   ],
   "type": "module",
+  "sideEffects": false,
   "main": "index.js",
-  "exports": {
-    ".": {
-      "import": "./index.js",
-      "types": "./index.d.ts",
-      "default": "./index.js"
-    },
-    "./asset": {
-      "import": "./asset.js",
-      "types": "./asset.d.ts"
-    },
-    "./pkg/index_bg.wasm": "./pkg/index_bg.wasm"
+  "module": "index.js",
+  "devDependencies": {
+    "@types/bun": "latest"
   },
-  "sideEffects": false
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
 }
