@@ -1,8 +1,6 @@
-import type * as BrotliDecWasm from './pkg/index.d.ts'
-import type init from './pkg/index.d.ts'
+import * as BrotliDecWasm from './pkg/brotli_dec_wasm.d.ts'
 
-export type * from './pkg/index.d.ts'
-export { init }
+declare const promisedValue: Promise<typeof BrotliDecWasm>
+export default promisedValue
 
-declare const BrotliDecWasmTypePromise: Promise<typeof BrotliDecWasm>
-export default BrotliDecWasmTypePromise
+export type BrotliDecWasmType = typeof BrotliDecWasm

@@ -3,7 +3,7 @@
   "version": "2.1.0",
   "description": "Brotli decompressor for browsers and web workers with WASM, which still has a small size (about 300KB)",
   "scripts": {
-    "build": "wasm-pack build -t web --out-name index",
+    "build": "wasm-pack build -t web",
     "test": "test/test.sh test"
   },
   "repository": {
@@ -23,10 +23,10 @@
   },
   "homepage": "https://github.com/ustclug-dev/brotli-dec-wasm#readme",
   "files": [
-    "pkg/index.js",
-    "pkg/index.d.ts",
-    "pkg/index_bg.wasm",
-    "pkg/index_bg.wasm.d.ts",
+    "pkg.web/brotli_dec_wasm_bg.wasm",
+    "pkg.web/brotli_dec_wasm_bg.wasm.d.ts",
+    "pkg.web/brotli_dec_wasm.d.ts",
+    "pkg.web/brotli_dec_wasm.js",
     "*.js",
     "*.d.ts",
     "LICENSE-*"
@@ -35,6 +35,7 @@
   "sideEffects": false,
   "main": "index.js",
   "module": "index.js",
+  "types": "index.d.ts",
   "devDependencies": {
     "@types/bun": "latest"
   },

@@ -32,11 +32,6 @@ Especially, a [`TransformStream`] example is available in [brotli-wasm:example/w
 [`TransformStream`]: https://developer.mozilla.org/en-US/docs/Web/API/TransformStream
 [brotli-wasm:example/web-next-transformstream/app/utils.ts]: https://github.com/httptoolkit/brotli-wasm/blob/main/example/web-next-transformstream/app/utils.ts
 
-To help colaborating with various bundlers (e.g., webpack, esbuild), we addtionally provide an `asset` entry and export the WASM binary file directly.
-The documentation for the `asset` entry is available at [doc/asset.md], including how to either use the `asset` entry or access the WASM binary file directly.
-
-[doc/asset.md]: doc/asset.md
-
 ## Problems
 
 ### Broken in webpack 5

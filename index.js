@@ -1,6 +1,2 @@
-import init, * as brotliDecWasm from './pkg/index.js'
-
-export * from './pkg/index.js'
-export { init }
-
+import init, * as brotliDecWasm from './pkg/brotli_dec_wasm.js'
 export default init().then(() => brotliDecWasm)
