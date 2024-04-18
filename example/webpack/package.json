@@ -4,7 +4,8 @@
   "description": "",
   "private": true,
   "scripts": {
-    "build": "webpack --config webpack.config.cjs",
+    "build:asset": "webpack --config webpack.asset.cjs",
+    "build:async": "webpack --config webpack.async.cjs",
     "dev": "http-server -c-1 ."
   },
   "keywords": [],
