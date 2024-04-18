@@ -41,8 +41,8 @@
   "exports": {
     ".": {
       "types": "./index.d.ts",
-      "import": "./index.web.js",
-      "default": "./index.web.js"
+      "import": "./index.js",
+      "default": "./index.js"
     },
     "./web": {
       "types": "./pkg/brotli_dec_wasm.d.ts",

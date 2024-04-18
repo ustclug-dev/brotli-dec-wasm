@@ -35,7 +35,9 @@ jobs:
       - name: Modify brotli-wasm for tests
         run: |
           test/test.sh preinstall
+          cat test/brotli-wasm/package.json
           test/test.sh pretest
+          cat test/brotli-wasm/test/brotli.spec.ts
       - name: Install brotli-wasm dependencies for tests
         run: npm install
         working-directory: test/brotli-wasm
