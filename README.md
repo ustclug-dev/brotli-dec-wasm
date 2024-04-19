@@ -5,8 +5,7 @@
 
 [npm:brotli-dec-wasm]: https://npmjs.com/package/brotli-dec-wasm
 
-[Brotli][google/brotli] decompressor for browsers and web workers with WASM, which still has a small size (about
-300KB)
+[Brotli][google/brotli] decompressor for browsers and web workers with WASM, which still has a small size (about ~~300KB~~ 200KB)
 
 [google/brotli]: https://github.com/google/brotli
 
