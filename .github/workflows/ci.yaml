@@ -44,6 +44,9 @@ jobs:
       - name: Build brotli-wasm for tests
         run: npm run build
         working-directory: test/brotli-wasm
+      - name: Update brotli-wasm to fix low-version wasm-bindgen incompability
+        run: cargo update
+        working-directory: test/brotli-wasm
       - run: npm run build
       - run: npm run test
       # >=0.13.2 because of arethetypeswrong/arethetypeswrong.github.io#117.
