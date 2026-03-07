@@ -9,7 +9,7 @@
     "dev": "http-server -c-1 ."
   },
   "keywords": [],
-  "author": "myl7 <myl@myl.moe> (https://myl.moe)",
+  "author": "Yulong Ming <i@myl7.org> (https://myl7.org)",
   "license": "MIT OR Apache-2.0",
   "type": "module",
   "dependencies": {

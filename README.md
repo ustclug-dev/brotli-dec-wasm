@@ -60,7 +60,7 @@ Build configuration such as `opt-level = "s"`, are fine-tuned with manual tests,
 The package is at least used by myself in my blog [mylmoe], which provides [a page to (de)compress Brotli online]
 
 [mylmoe]: https://github.com/myl7/mylmoe
-[a page to (de)compress Brotli online]: https://myl.moe/utils/brotli
+[a page to (de)compress Brotli online]: https://brotli.myl.moe
 
 ## Alternatives
 
