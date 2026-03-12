@@ -3,7 +3,9 @@
   "version": "2.3.1",
   "description": "Brotli decompressor for browsers and web workers with WASM, which still has a small size (about 200KB)",
   "scripts": {
-    "build": "wasm-pack build -t web",
+    "build": "wasm-pack build -t web && tsc",
+    "build:wasm": "wasm-pack build -t web",
+    "build:ts": "tsc",
     "test": "test/test.sh test",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
@@ -18,7 +20,7 @@
     "wasm",
     "rust"
   ],
-  "author": "myl7",
+  "author": "Yulong Ming <i@myl7.org> (https://myl7.org)",
   "license": "MIT OR Apache-2.0",
   "bugs": {
     "url": "https://github.com/ustclug-dev/brotli-dec-wasm/issues"
@@ -31,13 +33,10 @@
     "pkg/brotli_dec_wasm.js",
     "*.js",
     "*.d.ts",
-    "LICENSE-*"
+    "LICENSE-*.txt"
   ],
   "type": "module",
   "sideEffects": false,
-  "main": "index.js",
-  "module": "index.js",
-  "types": "index.d.ts",
   "exports": {
     ".": {
       "types": "./index.d.ts",
@@ -56,7 +55,7 @@
     }
   },
   "devDependencies": {
-    "prettier": "^3.7.4",
+    "prettier": "^3.8.1",
     "typescript": "^5.9.3"
   }
 }

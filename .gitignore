@@ -1,5 +1,17 @@
-## Node
+# IDE
+.vscode
+.idea
 
+# AI agents
+.claude/**/*.local.*
+/doc/plans
+.firecrawl
+
+# Build outputs
+/index.js
+/index.d.ts
+
+## Node
 # Logs
 logs
 *.log
@@ -132,7 +144,6 @@ dist
 .pnp.*
 
 ## wasm-pack
-
 /target
 **/*.rs.bk
 # wasm-pack prefers (generated in the project boilerplate) to ignore the lock file.
@@ -141,9 +152,3 @@ dist
 bin/
 pkg/
 wasm-pack.log
-
-## Others
-
-# IDE
-.vscode
-.idea

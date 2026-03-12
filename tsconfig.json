@@ -1,11 +1,10 @@
 {
   "compilerOptions": {
-    "lib": ["es6"],
+    "target": "es2024",
     "module": "node16",
-    "target": "es6",
-    "moduleDetection": "force",
-    "allowJs": true,
     "moduleResolution": "node16",
+    "declaration": true,
+    "allowJs": true,
     "verbatimModuleSyntax": true,
 
     // Best practices
@@ -17,5 +16,6 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noPropertyAccessFromIndexSignature": true
-  }
+  },
+  "include": ["index.ts"]
 }
