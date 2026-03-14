@@ -27,6 +27,7 @@ The default export is a promise that resolves to the WASM module:
 import brotliPromise from "brotli-dec-wasm";
 
 const brotli = await brotliPromise;
+const compressedData = new Uint8Array(/* ... */);
 const decompressed = brotli.decompress(compressedData);
 ```
 
@@ -45,6 +46,7 @@ const brotli = await brotliPromise;
 const stream = new brotli.DecompressStream();
 const chunks = [];
 
+const compressedChunks = [new Uint8Array(/* ... */) /* ... */];
 for (const chunk of compressedChunks) {
     let resultCode;
     let inputOffset = 0;
