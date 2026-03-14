@@ -9,7 +9,7 @@ importers:
   .:
     devDependencies:
       '@vitest/browser-playwright':
-        specifier: '4'
+        specifier: ^4.1.0
         version: 4.1.0(playwright@1.58.2)(vite@7.3.1(lightningcss@1.32.0))(vitest@4.1.0)
       prettier:
         specifier: ^3.8.1
