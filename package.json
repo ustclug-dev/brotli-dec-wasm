@@ -1,7 +1,7 @@
 {
   "name": "brotli-dec-wasm",
   "version": "2.3.1",
-  "description": "Brotli decompressor for browsers and web workers with WASM, which still has a small size (about 200KB)",
+  "description": "Brotli decompressor for browsers and web workers with WASM, in about 200KB",
   "scripts": {
     "build": "wasm-pack build -t web && tsc",
     "build:wasm": "wasm-pack build -t web",
