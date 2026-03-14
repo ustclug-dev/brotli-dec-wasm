@@ -1,6 +1,6 @@
 {
   "name": "brotli-dec-wasm",
-  "version": "2.3.1",
+  "version": "2.3.2",
   "description": "Brotli decompressor for browsers and web workers with WASM, in about 200KB",
   "scripts": {
     "build": "npm run build:wasm && npm run build:ts && npm run minify",
