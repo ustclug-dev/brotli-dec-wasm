@@ -11,6 +11,9 @@
 /index.js
 /index.d.ts
 
+# Test fixtures
+/test/*.bin
+
 ## Node
 # Logs
 logs

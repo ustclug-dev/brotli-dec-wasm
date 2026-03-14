@@ -6,7 +6,9 @@
     "build": "wasm-pack build -t web && tsc",
     "build:wasm": "wasm-pack build -t web",
     "build:ts": "tsc",
-    "test": "test/test.sh test",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "bench": "vitest bench",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },
@@ -55,7 +57,9 @@
     }
   },
   "devDependencies": {
+    "@vitest/browser-playwright": "^4.1.0",
     "prettier": "^3.8.1",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.0"
   }
 }

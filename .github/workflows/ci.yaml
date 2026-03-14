@@ -20,35 +20,19 @@ jobs:
     name: JS test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v6
+      - uses: pnpm/action-setup@v4
+        with:
+          version: latest
+      - uses: actions/setup-node@v6
         with:
           node-version: latest
+          cache: pnpm
       - name: Install wasm-pack
         run: curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
-      - name: Download brotli-wasm for tests
-        uses: actions/checkout@v3
-        with:
-          repository: httptoolkit/brotli-wasm
-          ref: c1ef39fb13155f2b608e5f4063f5778279f18a22
-          path: test/brotli-wasm
-      - name: Modify brotli-wasm for tests
-        run: |
-          test/test.sh preinstall
-          cat test/brotli-wasm/package.json
-          test/test.sh pretest
-          cat test/brotli-wasm/test/brotli.spec.ts
-      - name: Install brotli-wasm dependencies for tests
-        run: npm install
-        working-directory: test/brotli-wasm
-      - name: Update brotli-wasm to fix low-version wasm-bindgen incompability
-        run: cargo update
-        working-directory: test/brotli-wasm
-      - name: Build brotli-wasm for tests
-        run: npm run build
-        working-directory: test/brotli-wasm
-      - run: npm run build
-      - run: npm run test
-      # >=0.13.2 because of arethetypeswrong/arethetypeswrong.github.io#117.
+      - run: pnpm install
+      - run: pnpm run format:check
+      - run: pnpm run build
+      - run: pnpm run test
       - name: Check ESM module resolution
-        run: npx '@arethetypeswrong/cli@>=0.13.2' --ignore-rules no-resolution cjs-resolves-to-esm --exclude-entrypoints ./web/bg.wasm --pack
+        run: pnpx @arethetypeswrong/cli --ignore-rules no-resolution cjs-resolves-to-esm --pack
