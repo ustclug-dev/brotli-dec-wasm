@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Avoid concurrent init, which causes corrupt state (#12)
 
+### Changed
+
+- Minify JS code
+
 ## [2.3.1] - 2026-01-13
 
 [unreleased]: https://github.com/ustclug-dev/brotli-dec-wasm/compare/v2.3.1...HEAD

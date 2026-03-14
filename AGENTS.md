@@ -1,0 +1,1 @@
+- Manage deps with pnpm.

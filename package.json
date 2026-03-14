@@ -3,9 +3,10 @@
   "version": "2.3.1",
   "description": "Brotli decompressor for browsers and web workers with WASM, in about 200KB",
   "scripts": {
-    "build": "wasm-pack build -t web && tsc",
+    "build": "npm run build:wasm && npm run build:ts && npm run minify",
     "build:wasm": "wasm-pack build -t web",
     "build:ts": "tsc",
+    "minify": "esbuild pkg/brotli_dec_wasm.js --minify --outfile=pkg/brotli_dec_wasm.js --allow-overwrite && esbuild index.js --minify --outfile=index.js --allow-overwrite",
     "test": "vitest run",
     "test:watch": "vitest",
     "bench": "vitest bench",
@@ -58,6 +59,7 @@
   },
   "devDependencies": {
     "@vitest/browser-playwright": "^4.1.0",
+    "esbuild": "^0.27.4",
     "prettier": "^3.8.1",
     "typescript": "^5.9.3",
     "vitest": "^4.1.0"
