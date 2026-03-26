@@ -3,11 +3,11 @@
 .idea
 
 # AI agents
-.claude/**/*.local.*
-/doc/plans
+.claude
+superpowers
 .firecrawl
 
-# Build outputs
+# Extra build outputs
 /index.js
 /index.d.ts
 
