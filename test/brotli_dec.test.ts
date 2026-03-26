@@ -1,8 +1,6 @@
-// Test cases derived from brotli-wasm (https://github.com/nicolo-ribaudo/brotli-wasm)
-// Copyright 2022 nicolo-ribaudo
-// Licensed under the Apache License, Version 2.0
-//
-// Modified: adapted for brotli-dec-wasm (decompress-only) and vitest.
+// Test cases derived from brotli-wasm (https://github.com/httptoolkit/brotli-wasm).
+// Licensed under Apache License, Version 2.0.
+// Modified: adapted for brotli-dec-wasm (decompress-only) and vitest
 
 import { describe, it, expect, beforeAll } from "vitest";
 import brotliDecPromise from "../index.ts";
