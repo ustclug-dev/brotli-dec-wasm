@@ -63,7 +63,7 @@ impl BrotliDecStream {
         let mut input_offset = 0;
         let mut available_out = output_size;
         let mut output_offset = 0;
-        match BrotliDecompressStream(
+        let code = match BrotliDecompressStream(
             &mut available_in,
             &mut input_offset,
             &input,
@@ -74,34 +74,21 @@ impl BrotliDecStream {
             &mut self.state,
         ) {
             BrotliResult::ResultFailure => {
-                // It should be a negative error code
                 let err_code = self.state.error_code as i32;
-                Err(JsError::new(&format!(
+                return Err(JsError::new(&format!(
                     "Brotli streaming decompress failed: Error code {err_code}"
-                )))
+                )));
             }
-            BrotliResult::NeedsMoreOutput => Ok(BrotliStreamResult {
-                code: BrotliStreamResultCode::NeedsMoreOutput,
-                buf: output.into_boxed_slice(),
-                input_offset,
-            }),
-            BrotliResult::ResultSuccess => {
-                output.truncate(output_offset);
-                Ok(BrotliStreamResult {
-                    code: BrotliStreamResultCode::ResultSuccess,
-                    buf: output.into_boxed_slice(),
-                    input_offset,
-                })
-            }
-            BrotliResult::NeedsMoreInput => {
-                output.truncate(output_offset);
-                Ok(BrotliStreamResult {
-                    code: BrotliStreamResultCode::NeedsMoreInput,
-                    buf: output.into_boxed_slice(),
-                    input_offset,
-                })
-            }
-        }
+            BrotliResult::NeedsMoreOutput => BrotliStreamResultCode::NeedsMoreOutput,
+            BrotliResult::ResultSuccess => BrotliStreamResultCode::ResultSuccess,
+            BrotliResult::NeedsMoreInput => BrotliStreamResultCode::NeedsMoreInput,
+        };
+        output.truncate(output_offset);
+        Ok(BrotliStreamResult {
+            code,
+            buf: output.into_boxed_slice(),
+            input_offset,
+        })
     }
 
     /// See [`Self::dec()`].

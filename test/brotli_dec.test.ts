@@ -7,8 +7,7 @@ import brotliDecPromise from "../index.ts";
 
 const textEncoder = new TextEncoder();
 const textDecoder = new TextDecoder();
-const base64ToData = (base64: string) =>
-    new Uint8Array([...atob(base64)].map((c) => c.charCodeAt(0)));
+const base64ToData = (base64: string) => Uint8Array.from(atob(base64), (c) => c.charCodeAt(0));
 
 type BrotliDecWasm = Awaited<typeof brotliDecPromise>;
 let brotliDec: BrotliDecWasm;
