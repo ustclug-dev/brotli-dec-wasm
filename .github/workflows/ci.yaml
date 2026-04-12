@@ -33,7 +33,7 @@ jobs:
       - run: pnpm install
       - run: pnpm run format:check
       - run: pnpm run build
-      - run: pnpx playwright install --with-deps --only-shell chromium
+      - run: pnpm exec playwright install --with-deps --only-shell chromium
       - run: pnpm run test
       - name: Check ESM module resolution
         run: pnpx @arethetypeswrong/cli --ignore-rules no-resolution cjs-resolves-to-esm --pack
