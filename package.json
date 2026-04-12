@@ -58,10 +58,10 @@
     }
   },
   "devDependencies": {
-    "@vitest/browser-playwright": "^4.1.2",
-    "esbuild": "^0.27.4",
-    "prettier": "^3.8.1",
+    "@vitest/browser-playwright": "^4.1.4",
+    "esbuild": "^0.28.0",
+    "prettier": "^3.8.2",
     "typescript": "^5.9.3",
-    "vitest": "^4.1.2"
+    "vitest": "^4.1.4"
   }
 }
