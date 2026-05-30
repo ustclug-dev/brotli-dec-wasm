@@ -48,15 +48,15 @@ const chunks = [];
 
 const compressedChunks = [new Uint8Array(/* ... */) /* ... */];
 for (const chunk of compressedChunks) {
-    let resultCode;
-    let inputOffset = 0;
-    do {
-        const input = chunk.slice(inputOffset);
-        const result = stream.decompress(input, 1024);
-        chunks.push(result.buf);
-        resultCode = result.code;
-        inputOffset += result.input_offset;
-    } while (resultCode === brotli.BrotliStreamResultCode.NeedsMoreOutput);
+  let resultCode;
+  let inputOffset = 0;
+  do {
+    const input = chunk.slice(inputOffset);
+    const result = stream.decompress(input, 1024);
+    chunks.push(result.buf);
+    resultCode = result.code;
+    inputOffset += result.input_offset;
+  } while (resultCode === brotli.BrotliStreamResultCode.NeedsMoreOutput);
 }
 ```
 
@@ -71,23 +71,23 @@ const brotli = await brotliPromise;
 const decompressStream = new brotli.DecompressStream();
 
 const decompressionStream = new TransformStream({
-    transform(chunk, controller) {
-        let resultCode;
-        let inputOffset = 0;
-        do {
-            const input = chunk.slice(inputOffset);
-            const result = decompressStream.decompress(input, 1024);
-            controller.enqueue(result.buf);
-            resultCode = result.code;
-            inputOffset += result.input_offset;
-        } while (resultCode === brotli.BrotliStreamResultCode.NeedsMoreOutput);
-        if (
-            resultCode !== brotli.BrotliStreamResultCode.NeedsMoreInput &&
-            resultCode !== brotli.BrotliStreamResultCode.ResultSuccess
-        ) {
-            controller.error(`Brotli decompression failed with code ${resultCode}`);
-        }
-    },
+  transform(chunk, controller) {
+    let resultCode;
+    let inputOffset = 0;
+    do {
+      const input = chunk.slice(inputOffset);
+      const result = decompressStream.decompress(input, 1024);
+      controller.enqueue(result.buf);
+      resultCode = result.code;
+      inputOffset += result.input_offset;
+    } while (resultCode === brotli.BrotliStreamResultCode.NeedsMoreOutput);
+    if (
+      resultCode !== brotli.BrotliStreamResultCode.NeedsMoreInput &&
+      resultCode !== brotli.BrotliStreamResultCode.ResultSuccess
+    ) {
+      controller.error(`Brotli decompression failed with code ${resultCode}`);
+    }
+  },
 });
 
 await compressedReadableStream.pipeThrough(decompressionStream).pipeTo(outputWritableStream);
@@ -104,12 +104,12 @@ import brotliPromise from "brotli-dec-wasm";
 const brotli = await brotliPromise;
 
 self.onmessage = (e) => {
-    try {
-        const result = brotli.decompress(new Uint8Array(e.data));
-        self.postMessage(result, [result.buffer]);
-    } catch (err) {
-        self.postMessage({ error: err.message });
-    }
+  try {
+    const result = brotli.decompress(new Uint8Array(e.data));
+    self.postMessage(result, [result.buffer]);
+  } catch (err) {
+    self.postMessage({ error: err.message });
+  }
 };
 ```
 
@@ -118,14 +118,14 @@ self.onmessage = (e) => {
 const worker = new Worker(new URL("./worker.js", import.meta.url), { type: "module" });
 
 function decompress(data) {
-    return new Promise((resolve, reject) => {
-        worker.onmessage = (e) => {
-            if (e.data.error) reject(new Error(e.data.error));
-            else resolve(e.data);
-        };
-        const buf = data.buffer.slice(data.byteOffset, data.byteOffset + data.byteLength);
-        worker.postMessage(buf, [buf]);
-    });
+  return new Promise((resolve, reject) => {
+    worker.onmessage = (e) => {
+      if (e.data.error) reject(new Error(e.data.error));
+      else resolve(e.data);
+    };
+    const buf = data.buffer.slice(data.byteOffset, data.byteOffset + data.byteLength);
+    worker.postMessage(buf, [buf]);
+  });
 }
 
 const result = await decompress(compressedData);

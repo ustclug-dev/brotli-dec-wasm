@@ -8,18 +8,18 @@ import brotliDecPromise from "../index.ts";
 const brotliDec = await brotliDecPromise;
 
 const [randomRes, repeatedRes] = await Promise.all([
-    fetch(new URL("./fixture_1m_random.bin", import.meta.url)),
-    fetch(new URL("./fixture_1m_repeated.bin", import.meta.url)),
+  fetch(new URL("./fixture_1m_random.bin", import.meta.url)),
+  fetch(new URL("./fixture_1m_repeated.bin", import.meta.url)),
 ]);
 const randomCompressed = new Uint8Array(await randomRes.arrayBuffer());
 const repeatedCompressed = new Uint8Array(await repeatedRes.arrayBuffer());
 
 describe("brotli.decompress", () => {
-    bench("1MB random data", () => {
-        brotliDec.decompress(randomCompressed);
-    });
+  bench("1MB random data", () => {
+    brotliDec.decompress(randomCompressed);
+  });
 
-    bench("1MB repeated data", () => {
-        brotliDec.decompress(repeatedCompressed);
-    });
+  bench("1MB repeated data", () => {
+    brotliDec.decompress(repeatedCompressed);
+  });
 });
