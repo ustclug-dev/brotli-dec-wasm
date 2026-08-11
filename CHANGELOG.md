@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Update `brotli-decompressor` to 5.0.3. A stream whose padding bits after the final metablock are not zero now
+  fails with `BROTLI_DECODER_ERROR_FORMAT_PADDING_2` instead of decoding, which is what RFC 7932 section 9.2 and
+  the reference C implementation require. Streams from standard encoders are unaffected.
+
 ## [2.3.2] - 2026-03-14
 
 ### Fixed
