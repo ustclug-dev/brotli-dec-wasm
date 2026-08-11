@@ -32,6 +32,9 @@ package exposes a small ESM wrapper that initializes the WASM module once.
 3. `pnpm run minify` minifies the generated WASM JS glue and the package entry.
 4. The published package exports the default wrapper at `.` and raw WASM-pack
    files at `./web` and `./web/bg.wasm`.
+5. `wasm-pack-version.txt` holds the `wasm-pack --version` output that CI
+   installs. Edit it to move the pinned version, and publish with that same
+   version so the released WASM matches what CI builds.
 
 ## Working Rules
 
