@@ -38,4 +38,16 @@ jobs:
       - run: pnpm install
       - run: pnpm run format:check
       - run: pnpm run build
+      - name: Report built sizes
+        run: |
+          total_raw=0
+          total_gzip=0
+          for f in pkg/brotli_dec_wasm_bg.wasm pkg/brotli_dec_wasm.js index.js; do
+            raw=$(wc -c < "$f" | tr -d ' ')
+            gz=$(gzip -9c "$f" | wc -c | tr -d ' ')
+            total_raw=$((total_raw + raw))
+            total_gzip=$((total_gzip + gz))
+            echo "$f: $raw bytes raw, $gz bytes gzip"
+          done
+          echo "total: $total_raw bytes raw, $total_gzip bytes gzip"
       - run: pnpm run test
