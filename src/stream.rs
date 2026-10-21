@@ -4,8 +4,10 @@ use wasm_bindgen::prelude::*;
 
 /// Returned by every successful (de)compression.
 //
-// Use `getter_with_clone` because `buf` does not implement `Copy`.
-#[wasm_bindgen(getter_with_clone)]
+// `buf` opts into `getter_with_clone` per-field; the `Copy` fields keep the
+// default by-value getters, which avoids the `.clone()` that clippy 1.99's
+// `clone_on_copy` lints under struct-level `getter_with_clone`.
+#[wasm_bindgen]
 pub struct BrotliStreamResult {
     /// Result code.
     ///
@@ -14,6 +16,7 @@ pub struct BrotliStreamResult {
     /// When error, the error code is not passed here but rather goes to `Err`.
     pub code: BrotliStreamResultCode,
     /// Output buffer
+    #[wasm_bindgen(getter_with_clone)]
     pub buf: Box<[u8]>,
     /// Consumed bytes of the input buffer
     pub input_offset: usize,
