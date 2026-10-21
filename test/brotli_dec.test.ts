@@ -76,3 +76,45 @@ describe("brotli-dec-wasm", () => {
     expect(textDecoder.decode(result)).toBe("Test input data");
   });
 });
+
+describe("custom dictionary", () => {
+  // Generated with:
+  //   printf '$DICT_TEXT' > dict.txt
+  //   printf '$PAYLOAD_TEXT' > payload.txt
+  //   brotli -q 5 -D dict.txt --stdout payload.txt | base64
+  const dict = base64ToData(
+    "bWl0b2Nob25kcmlhbCBlbmVyZ3kgY29udmVyc2lvbi4gb3hpZGF0aXZlIHBob3NwaG9yeWxhdGlvbi4gZWxlY3Ryb24gdHJhbnNwb3J0IGNoYWluLiBrcmVicyBjeWNsZSByZWd1bGF0aW9uLiBhZGVub3NpbmUgdHJpcGhvc3BoYXRlIHN5bnRoZXNpcy4gY2hsb3JvcGh5bGwgYWJzb3JwdGlvbiBzcGVjdHJhLiBlbnp5bWUgc3Vic3RyYXRlIGFmZmluaXR5LiBnbHljb2x5c2lzIHBhdGh3YXkgY29udHJvbC4gY2VsbHVsYXIgcmVzcGlyYXRpb24gYmFsYW5jZS4gcGhvdG9zeW50aGVzaXMgZWZmaWNpZW5jeS4g",
+  );
+  const compressed = base64ToData("oXgFACDgkCO9QoC1BVngHAu9azQmYeHlcPrBY/h8nimn4qeGNbirsTtZnXW4y6FI4I7IoS+CJJPBqZwH");
+  const payload =
+    "The electron transport chain drives adenosine triphosphate synthesis, while the krebs cycle regulation gates the glycolysis pathway control across cellular respiration balance.";
+
+  it("can decompress custom-dictionary data with the dictionary", () => {
+    const result = brotliDec.decompress(compressed, dict);
+    expect(textDecoder.decode(result)).toBe(payload);
+  });
+
+  it("cleanly fails when decompressing custom-dictionary data without the dictionary", () => {
+    expect(() => brotliDec.decompress(compressed)).toThrow("Brotli decompress failed");
+  });
+
+  it("treats an empty custom dictionary as absent", () => {
+    expect(() => brotliDec.decompress(compressed, new Uint8Array(0))).toThrow("Brotli decompress failed");
+  });
+
+  it("can streamingly decompress custom-dictionary data with the dictionary", () => {
+    const input1 = compressed.slice(0, compressed.length / 2);
+    const input2 = compressed.slice(compressed.length / 2);
+    const stream = new brotliDec.DecompressStream(dict);
+    const result1 = stream.decompress(input1, 256);
+    expect(result1.code).toBe(brotliDec.BrotliStreamResultCode.NeedsMoreInput);
+    const result2 = stream.decompress(input2, 256);
+    expect(result2.code).toBe(brotliDec.BrotliStreamResultCode.ResultSuccess);
+    expect(textDecoder.decode(new Uint8Array([...result1.buf, ...result2.buf]))).toBe(payload);
+  });
+
+  it("cleanly fails when streamingly decompressing custom-dictionary data without the dictionary", () => {
+    const stream = new brotliDec.DecompressStream();
+    expect(() => stream.decompress(compressed, 256)).toThrow("Brotli streaming decompress failed");
+  });
+});
