@@ -11,6 +11,7 @@ For compressors, see [Alternatives](#alternatives).
 
 - Optimized for size, suitable for browsers and web workers.
 - [Streaming](https://brotli.org/decode.html#a234) decompression.
+- [Custom dictionary](#custom-dictionary) decompression.
 - Drop-in replacement for [brotli-wasm](https://github.com/httptoolkit/brotli-wasm).
 
 ## Get Started
@@ -59,6 +60,18 @@ for (const chunk of compressedChunks) {
   } while (resultCode === brotli.BrotliStreamResultCode.NeedsMoreOutput);
 }
 ```
+
+### Custom dictionary
+
+Pass the raw (LZ77) dictionary the stream was compressed against as an optional second argument of `decompress`, or as the optional `DecompressStream` constructor argument:
+
+```js
+const decompressed = brotli.decompress(compressedData, dictionary);
+// or
+const stream = new brotli.DecompressStream(dictionary);
+```
+
+The dictionary is not embedded in the stream. Decompression fails unless the identical dictionary is supplied, and an empty `Uint8Array` is treated as no dictionary. Such streams are produced e.g. by the [brotli CLI](https://github.com/google/brotli)'s `-D FILE` flag. A dictionary longer than the stream's window is automatically trimmed to its tail, as the decoder requires.
 
 ### Using with TransformStream
 

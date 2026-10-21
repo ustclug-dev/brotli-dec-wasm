@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Support raw (LZ77) custom dictionaries: optional second argument of `brotli_dec` / `decompress`,
+  optional first argument of the `BrotliDecStream` / `DecompressStream` constructor. Decompresses
+  streams encoded against the same dictionary, e.g. by the brotli CLI's `-D FILE`. Adds about
+  0.9KB to the WASM binary; existing call shapes are unaffected.
+
 ### Changed
 
 - Update `brotli-decompressor` to 5.0.3. A stream whose padding bits after the final metablock are not zero now
